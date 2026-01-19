@@ -48,8 +48,6 @@ function Dashboard() {
 
   // Use application data if available, otherwise use defaults
   const creditScore = latestApplication?.credit_score || 0;
-  const rating = latestApplication?.rating || 'N/A';
-  const defaultProbability = latestApplication?.default_probability || 0;
   const hasApplication = latestApplication !== null;
   
   // Calculate stroke offset for credit score circle (762 max score = 534 circumference)

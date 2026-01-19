@@ -107,7 +107,7 @@ function AdminDashboard() {
     if (activeTab === 'history') {
       fetchHistory();
     }
-  }, [activeTab, historyFilters]);
+  }, [activeTab, historyFilters, fetchHistory]);
 
   const handleDeleteUser = async (userId) => {
     if (!window.confirm('Are you sure you want to delete this user and all associated applications?')) {
@@ -380,9 +380,6 @@ function AdminDashboard() {
                   <div className="bar-chart-container">
                     {(() => {
                       const approved = stats.approved_applications || 1;
-                      const rejected = stats.rejected_applications || 1;
-                      const pending = stats.pending_applications || 1;
-                      const total = stats.total_applications || 1;
                       
                       const avgApproved = (insights.disbursed_vs_repaid?.total_disbursed || 0) / approved;
                       const avgRejected = 200000; // Placeholder
