@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AdminDashboard.css';
@@ -92,7 +92,7 @@ function AdminDashboard() {
     }
   };
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/admin/applications/history', {
         params: historyFilters
@@ -101,13 +101,13 @@ function AdminDashboard() {
     } catch (err) {
       console.error('Error fetching history:', err);
     }
-  };
+  }, [historyFilters]);
 
   useEffect(() => {
     if (activeTab === 'history') {
       fetchHistory();
     }
-  }, [activeTab, historyFilters, fetchHistory]);
+  }, [activeTab, fetchHistory]);
 
   const handleDeleteUser = async (userId) => {
     if (!window.confirm('Are you sure you want to delete this user and all associated applications?')) {
