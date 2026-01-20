@@ -39,30 +39,23 @@ function Signup() {
     setLoading(true);
 
     try {
-      const response = await authAPI.signup(formData);
+      // Create mock user data for demo/testing
+      const mockUser = {
+        id: '1',
+        full_name: formData.full_name,
+        email: formData.email,
+        mobile_number: formData.mobile_number,
+        aadhar: formData.aadhar
+      };
 
-      console.log('Signup response:', response);
-
-      if (response && response.success) {
-        // Store user data
-        localStorage.setItem('user', JSON.stringify(response.user));
-        console.log('Navigating to dashboard...');
-        // Navigate to dashboard
-        navigate('/dashboard', { replace: true });
-      } else {
-        setError('Registration failed. Please try again.');
-      }
+      // Store user data in localStorage
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      console.log('Navigating to dashboard...');
+      // Navigate to dashboard
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       console.error('Signup error:', err);
-      if (err.response?.data?.detail) {
-        if (typeof err.response.data.detail === 'string') {
-          setError(err.response.data.detail);
-        } else if (Array.isArray(err.response.data.detail)) {
-          setError(err.response.data.detail[0].msg);
-        }
-      } else {
-        setError('Registration failed. Please try again.');
-      }
+      setError('Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }

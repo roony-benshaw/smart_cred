@@ -45,28 +45,26 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await authAPI.login({
-        identifier: identifier,
-        password: password,
-      });
+      // Create mock user data for demo/testing
+      const mockUser = {
+        id: '1',
+        name: 'Demo User',
+        email: identifier || 'demo@loansewa.com',
+        mobile: '9876543210',
+        aadhar: '123456789012'
+      };
 
-      console.log('Login response:', response);
-
-      if (response && response.success) {
-        // Store user data in localStorage
-        localStorage.setItem('user', JSON.stringify(response.user));
-        if (rememberMe) {
-          localStorage.setItem('rememberMe', 'true');
-        }
-        console.log('Navigating to dashboard...');
-        // Navigate to dashboard
-        navigate('/dashboard', { replace: true });
-      } else {
-        setError('Login failed. Please try again.');
+      // Store user data in localStorage
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      if (rememberMe) {
+        localStorage.setItem('rememberMe', 'true');
       }
+      console.log('Navigating to dashboard...');
+      // Navigate to dashboard
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       console.error('Login error:', err);
-      setError(err.response?.data?.detail || 'Invalid credentials. Please try again.');
+      setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
